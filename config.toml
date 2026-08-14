@@ -9,6 +9,26 @@ neighbourhoods_url = ""
 [source]
 sqlite_path = "C:/Users/kk/Code/ontario-address-changes/data/hamilton/hamilton.db"
 
+# Per-city projection recipe (multi-city Tier 2). Hamilton's tracker TOML maps
+# the canonical street to the source's FULL_STREET_NAME ("Hall Road" — already
+# typed, 100% populated), so `street` is usable directly; the survey's
+# street_source="props" described the survey's own recipe, not a defect.
+# Undeclared fields are absent capabilities: Hamilton has no address ranges,
+# no address class, no ward — the features reading them are disabled-for-cause
+# by the engine, visibly (03-capability-gating.md).
+[source_fields]
+street_from = "street"
+# The layer publishes no combined address column (13 fields, confirmed
+# 2026-08-10); synthesize "number street" the way the tracker's reports do.
+full_from = "number+street"
+# COMMUNITY is the former-municipality field ("Hamilton", "Dundas", "Stoney
+# Creek", "Glanbrook", …) — the dedup-keying analogue of Toronto's
+# MUNICIPALITY_NAME. The props MUNICIPALITY field is the constant "City of
+# Hamilton" and would be useless as a key. NOTE: this feeds dedup keying and
+# review display only — never addr:city, which is a separate open decision
+# (TODO.md §2).
+municipality = "props:COMMUNITY"
+
 [run_defaults]
 # Small downtown rectangle (around Gore Park) for first test runs.
 bbox = [43.25, -79.88, 43.27, -79.85]
@@ -31,7 +51,10 @@ match_near_m = 15
 
 [checks]
 match_far = true
-suffix_range = true
+# suffix_range deliberately absent: it reads lo_num/hi_num, which Hamilton's
+# source does not have ([source_fields] declares none). The engine refuses to
+# start a run whose config explicitly enables a check its source cannot
+# support, and shows it as "n/a" rather than "off" in the run UI.
 city_duplicate = true
 missing_sample = true
 nearby_street_mismatch = true
