@@ -24,7 +24,10 @@ Before any production upload: entry-state survey confirmed greenfield
 proposal page, forum announcement, and feedback window per the
 [OSM Import Guidelines](https://wiki.openstreetmap.org/wiki/Import/Guidelines)
 — Toronto's [`IMPORT_PROPOSAL.mediawiki`](https://github.com/skfd/toronto-2-address-import/blob/main/IMPORT_PROPOSAL.mediawiki)
-is the template. Hamilton defers no unit addresses, so the units question
-(engine `future-work/multi-city/09-units.md`) does not block it.
+is the template. The 2026-08-14 baseline conflation found that Hamilton *does*
+publish unit addresses — `UNIT_NUMBER_COMPLETE` in props on 36.8% of rows,
+stacked at the parcel point (632 rows at 75 James St S) — so the units
+question (engine `future-work/multi-city/09-units.md`, "The Hamilton
+numbers") gates the upload, though not conflation runs.
 
 MIT licensed.
