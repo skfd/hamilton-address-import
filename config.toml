@@ -28,6 +28,20 @@ full_from = "number+street"
 # review display only — never addr:city, which is a separate open decision
 # (TODO.md §2).
 municipality = "props:COMMUNITY"
+# The tracker maps no canonical unit for Hamilton, but the props carry one on
+# 36.8% of rows (found by the first baseline, 2026-08-14 — see the engine's
+# future-work/multi-city/09-units.md, "The Hamilton numbers"). Declaring it
+# obliges the [units] policy below.
+unit = "props:UNIT_NUMBER_COMPLETE"
+
+# Decision 2026-08-14 (09-units.md option 2): collapse to one candidate per
+# civic address now, design unit-level import separately. The collapse keys on
+# (number, street, COMMUNITY) — 776 street names repeat across the former
+# municipalities, so community is load-bearing — and elects the unit-less row
+# as representative (87 of 9,196 stacked groups have none; lowest identity_key
+# then). 273,374 active rows collapse to 173,085 civic candidates.
+[units]
+policy = "collapse-to-civic"
 
 [run_defaults]
 # Small downtown rectangle (around Gore Park) for first test runs.
