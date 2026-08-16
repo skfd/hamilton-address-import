@@ -8,6 +8,13 @@ name = "Hamilton"
 # fit in one page under the service's maxRecordCount of 2000.
 # https://data-spatialsolutions.opendata.arcgis.com/datasets/neighbourhoods
 neighbourhoods_url = "https://services.arcgis.com/rYz782eMbySr2srL/arcgis/rest/services/Neighborhoods/FeatureServer/8/query?where=1%3D1&outFields=COMMUNITY,NEIGHBOURHOOD,PLANNING_UNIT&outSR=4326&f=geojson"
+# Declared 2026-08-15 (engine contract change, 02-city-config-contract.md):
+# verified against the cached layer; identical to the old sniff. COMMUNITY is
+# deliberately NOT declared as neighbourhood_parent_field — declaring it
+# would prefix every tile name instead of only ambiguous ones, and tile
+# names/ids are load-bearing (engine TODO §7). The sniffed fallback keeps
+# the duplicates-only behaviour.
+neighbourhood_name_field = "NEIGHBOURHOOD"
 
 [source]
 sqlite_path = "C:/Users/kk/Code/ontario-address-changes/data/hamilton/hamilton.db"
