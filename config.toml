@@ -1,10 +1,13 @@
 [city]
-# City #2 of the address-import family (decided 2026-08-13). Hamilton has no
-# neighbourhood polygon layer, so neighbourhoods_url stays empty and the tile
-# builder quadtree-splits [osm] city_bbox directly (the "no layer" path).
 slug = "hamilton"
 name = "Hamilton"
-neighbourhoods_url = ""
+# Open Hamilton's "Neighbourhoods" layer: 234 planning-unit polygons (the
+# analogue of Toronto's 158-neighbourhood layer). Verified 2026-08-14: 99.99%
+# of snapshot-36 addresses fall inside (27 orphans citywide). The name field
+# is NEIGHBOURHOOD; COMMUNITY carries the former municipality. 234 features
+# fit in one page under the service's maxRecordCount of 2000.
+# https://data-spatialsolutions.opendata.arcgis.com/datasets/neighbourhoods
+neighbourhoods_url = "https://services.arcgis.com/rYz782eMbySr2srL/arcgis/rest/services/Neighborhoods/FeatureServer/8/query?where=1%3D1&outFields=COMMUNITY,NEIGHBOURHOOD,PLANNING_UNIT&outSR=4326&f=geojson"
 
 [source]
 sqlite_path = "C:/Users/kk/Code/ontario-address-changes/data/hamilton/hamilton.db"
