@@ -53,6 +53,17 @@ unit = "props:UNIT_NUMBER_COMPLETE"
 [units]
 policy = "collapse-to-civic"
 
+# Operator-facing chrome — where the tool's header and footer point for
+# Hamilton. Omitted keys are simply not shown (before 2026-08-29 every city was
+# shown Toronto's repo, thread and licence). Only `repo` is declared: Hamilton
+# has not announced on the OSM forum and has no import wiki page yet, so there
+# is nothing to point `discussion` or `proposal` at. Fill them in with the same
+# commit that fills in [export] import_plan. No `open_data`: the licence is the
+# Open Data Licence - Hamilton, but no canonical URL for it is recorded, so the
+# footer falls back to the [export] attribution string unlinked.
+[links]
+repo = "https://github.com/skfd/hamilton-address-import"
+
 [run_defaults]
 # Small downtown rectangle (around Gore Park) for first test runs.
 bbox = [43.25, -79.88, 43.27, -79.85]
